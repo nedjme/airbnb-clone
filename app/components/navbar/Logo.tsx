@@ -8,6 +8,7 @@ const Logo: React.FC = () => {
   return (
     <Image
       alt="this is a logo"
+      onClick={() => router.push("/")}
       src="/images/logo.png"
       className="cursor-pointer md:block hidden"
       placeholder="empty"
