@@ -5,8 +5,11 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 import MenuItem from "./MenuItem";
 import Avatar from "../Avatar";
-import { useRegisterModal } from "@/app/hooks/useModals";
-import { useLoginModal } from "@/app/hooks/useModals";
+import {
+  useLoginModal,
+  useRegisterModal,
+  useRentModal,
+} from "@/app/hooks/useModals";
 import { signOut } from "next-auth/react";
 import { SafeUser } from "@/app/types";
 
@@ -21,16 +24,25 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
 
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+  const rentModal = useRentModal();
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
 
+  const onRent = useCallback(() => {
+    if (!currentUser) {
+      loginModal.onOpen();
+    }
+
+    rentModal.onOpen();
+  }, [loginModal, currentUser]);
+
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
         <div
-          onClick={undefined}
+          onClick={onRent}
           className="
             hidden
             md:block
@@ -104,7 +116,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                   label="My properties"
                   onClick={() => router.push("/properties")}
                 />
-                <MenuItem label="Airbnb your home" onClick={() => {}} />
+                <MenuItem label="Airbnb your home" onClick={rentModal.onOpen} />
                 <hr />
                 <MenuItem label="Logout" onClick={signOut} />
               </>
