@@ -110,7 +110,7 @@ const RegisterModal = () => {
           font-light
         "
       >
-        <p>
+        <p className="flex flex-row gap-1 justify-center">
           Already have an account?
           <span
             onClick={onToggle}
