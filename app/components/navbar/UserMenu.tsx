@@ -34,9 +34,8 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     if (!currentUser) {
       loginModal.onOpen();
     }
-
     rentModal.onOpen();
-  }, [loginModal, currentUser]);
+  }, [loginModal, rentModal, currentUser]);
 
   return (
     <div className="relative">

@@ -6,11 +6,16 @@ import getListings, { IListingsParams } from "@/app/actions/getListings";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import ClientOnly from "./components/ClientOnly";
 
+export const dynamic = "force-dynamic";
+
 interface HomeProps {
   searchParams: IListingsParams;
 }
 
 const Home = async ({ searchParams }: HomeProps) => {
+  if (!searchParams) {
+    return null;
+  }
   const listings = await getListings(searchParams);
   const currentUser = await getCurrentUser();
 
