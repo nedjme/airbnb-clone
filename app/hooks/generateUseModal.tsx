@@ -6,14 +6,16 @@ interface ModalStore {
   onClose: () => void;
 }
 
-const generateUseModal = () => {
-  const useModal = create<ModalStore>((set) => ({
-    isOpen: false,
-    onOpen: () => set({ isOpen: true }),
-    onClose: () => set({ isOpen: false }),
-  }));
+const generateUseModal = (num: number) => {
+  const useModals = Array.from({ length: num }, () =>
+    create<ModalStore>((set) => ({
+      isOpen: false,
+      onOpen: () => set({ isOpen: true }),
+      onClose: () => set({ isOpen: false }),
+    }))
+  );
 
-  return useModal;
+  return useModals;
 };
 
 export default generateUseModal;
